@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>LG Anypoint Input</title>
+  <style>
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  </style>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+</head>
+
+<body>
+  <div id="main">
+    <h1>Anypoint input</h1>
+    <awc-input>
+      <label slot="label">This is an input</label>
+    </awc-input>
+
+
+    <h3>Prefixes and suffixes</h3>
+
+    <p>
+      Prefix is a widget rendered before the input field. Suffix is a widget
+      rendered after the text field.
+    </p>
+
+    <p>
+      When it make sense a prefix or suffix can be used to suggest right
+      input. Fox example in cash amount field input a prefix could be
+      <code>$</code> sign which suggest the value is interpreted in US
+      dollars.
+    </p>
+
+    <awc-input name="ex1" type="number">
+      <label slot="label">Amount to transfer</label>
+      <span slot="prefix" aria-label="Value in US dollars">$</span>
+    </awc-input>
+
+    <p>
+      Similarly suffix can provide additional information about the format
+      of input. For the same cach amount input suffix could render
+      <code>.00</code> to suggest that the input is an integer.
+    </p>
+
+    <awc-input name="ex2" type="number">
+      <label slot="label">Amount to transfer</label>
+      <span slot="suffix" aria-label="Use integers">.00</span>
+    </awc-input>
+
+    <p>
+      Suffixes can also be active widget. It can be an icon button that
+      toggles visibility of the password. Just remember that adding
+      interactive suffixes is not a common design pattern and your suffix
+      has to have clear meaning to the user.
+    </p>
+
+    <awc-input type="password" name="ex3">
+      <label slot="label">Password</label>
+      <button slot="suffix"
+        aria-label="Actibate the button to show the password"
+        onclick="this.parentNode.type='text'"
+      >Show</button>
+    </awc-input>
+
+    <awc-input type="email" name="ex4">
+      <label slot="label">Email</label>
+      <div slot="suffix">@mulesoft.com</div>
+    </awc-input>
+
+    <h3>Assistive text</h3>
+
+    <p>
+      Assistive text allows the user to better understand what kind of input is
+      required. It can be an info message or invalid message when invalid
+      input has been detected.
+    </p>
+
+    <h4>Info message</h4>
+    <p>
+      Info message provides the user with additional description for the
+      field. It should be used when the label can be confusing or to ensure
+      the user about the reason of collecting the input.
+    </p>
+
+    <awc-input infomessage="Used to confirm your order." type="email" name="ex5">
+      <label slot="label">Email</label>
+    </awc-input>
+
+    <p>
+      Do not try to put too detailed information. The user should be able to
+      scan the message in a fraction of a second. Treat it as an additional
+      text for the label.
+    </p>
+
+    <h4>Invalid message</h4>
+    <p>
+      Error message should help the user recover from the error state. Use
+      clear message with simple instructions of how to fix the problem, for
+      example <code>Only letters are allowed.</code>
+    </p>
+
+    <awc-input
+      invalidmessage="Only letters are allowed"
+      type="text"
+      name="ex6"
+      invalid
+    >
+      <label slot="label">Username</label>
+    </awc-input>
+
+    <p>
+      Note, consider using <code>preventInvalidInput</code> and
+      <code>allowedPattern</code>
+      in situations like the one above. However, don't be too restrictive
+      when using this properties.
+    </p>
+
+    <h3>Positioning</h3>
+    <p>Each input element has 12 pixels top and bottom margin and 8 pixels left and right margin.</p>
+    <p>
+      The spacing allows to put multiple controls inside a form without styling it for
+      visibility. This can be changed via CSS styling, but please, consider inpact of this action
+      to other elements which are positioned in the same way.
+    </p>
+
+    <h2>Validation</h2>
+
+    <h3>Built-in validators</h3>
+    <p>
+      Preffered way of dealing with validation is to use native input's validation
+      properties like <code>required</code>, <code>minLength</code>, <code>maxLength</code>, and so on.
+      The element preffers native validation over custom logic as it is more performant.
+    </p>
+
+    <p>
+      Use this attributes with cobination with <code>autovalidate</code> attribute which
+      validates the state on user input
+    </p>
+
+    <awc-input
+      title="This input is required"
+      type="text"
+      autovalidate
+      required
+      invalidmessage="The value is required"
+    >
+      <label slot="label">Required input</label>
+    </awc-input>
+
+    <awc-input
+      title="Min and max length"
+      type="text"
+      autovalidate
+      minlength="5"
+      maxlength="10"
+      invalidmessage="Use 5 to 10 characters"
+    >
+      <label slot="label">Min and max length</label>
+    </awc-input>
+
+    <awc-input
+      title="Min and max number"
+      type="number"
+      autovalidate
+      min="10"
+      max="20"
+      invalidmessage="Only number in range 10 - 20"
+    >
+      <label slot="label">Min and max number</label>
+    </awc-input>
+
+    <awc-input
+      title="Letters only via pattern"
+      type="text"
+      autovalidate
+      pattern="[a-zA-Z]*"
+      invalidmessage="Only letters are allowed"
+    >
+      <label slot="label">Pattern</label>
+    </awc-input>
+
+    <awc-input
+      title="Letters only via pattern"
+      type="text"
+      allowedpattern="[a-zA-Z]"
+      preventinvalidinput
+      infomessage="Prevents non-letter characters"
+    >
+      <label slot="label">Prevent invalid input</label>
+    </awc-input>
+
+    <h3>Custom validators</h3>
+    <p>
+      Anypoint web components offers <code>ValidatorMixin</code> that allows to define
+      a custom element that validates an input field. This allows to reuse validation
+      logic accross different parts of the application.
+    </p>
+
+    <minimum-maximum-length></minimum-maximum-length>
+    <number-required></number-required>
+    <uppercase-required></uppercase-required>
+
+    <awc-input
+      title="Custom validation is enabled"
+      type="text"
+      autovalidate
+      validator="minimum-maximum-length number-required uppercase-required"
+      infomessage="Try to create a password"
+    >
+      <label slot="label">Custom validation</label>
+    </awc-input>
+  </div>
+  <script src="main.js"></script>
+</body>
+
+</html>

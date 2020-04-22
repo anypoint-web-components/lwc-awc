@@ -1,0 +1,50 @@
+<template>
+<div class="input-container">
+  <div class="prefixes">
+    <slot name="prefix"></slot>
+  </div>
+  <div class="input-label">
+    <div class={labelClass}>
+      <slot name="label"></slot>
+    </div>
+    <input
+      class="input-element"
+      disabled={disabled}
+      type={inputType}
+      pattern={pattern}
+      required={required}
+      autocomplete={autocomplete}
+      autofocus={autofocus}
+      inputmode={inputmode}
+      minlength={minLength}
+      maxlength={maxLength}
+      min={min}
+      max={max}
+      step={step}
+      name={name}
+      placeholder={placeholder}
+      readonly={readonly}
+      list={list}
+      size={size}
+      autocapitalize={autocapitalize}
+      autocorrect={autocorrect}
+      tabindex="-1"
+      results={results}
+      accept={accept}
+      multiple={multiple}
+      spellcheck={spellcheck}
+      value={bindValue}
+      onchange={changeHandler}
+      oninput={inputHandler}
+      onsearch={retargetEvent}/>
+  </div>
+  <div class="suffixes">
+    <slot name="suffix"></slot>
+  </div>
+
+  <div class="assistive-info">
+    <p if:true={infoMessage} class={_infoAddonClass}>{infoMessage}</p>
+    <p if:true={invalidMessage} class={_errorAddonClass}>{invalidMessage}</p>
+  </div>
+</div>
+</template>

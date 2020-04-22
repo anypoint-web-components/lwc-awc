@@ -1,0 +1,56 @@
+{
+  "name": "@anypoint-web-components/lg-anypoint-input",
+  "description": "First attempt to work with LWC.",
+  "version": "0.1.0",
+  "author": "Pawel",
+  "bugs": "https://github.com/Pawel//issues",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "helmet": "^3.22.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.1.2",
+    "lwc-services": "^2.0.5",
+    "prettier": "^2.0.4"
+  },
+  "engines": {
+    "node": ">=10.13.0",
+    "npm": ">=6.4.1",
+    "yarn": ">=1.9.4"
+  },
+  "homepage": "https://github.com/Pawel/",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "keywords": [
+    "lwc"
+  ],
+  "license": "MIT",
+  "lint-staged": {
+    "**/*.{css,html,js,json,md,ts,yaml,yml}": [
+      "prettier --write"
+    ],
+    "./src/**/*.js": [
+      "eslint"
+    ]
+  },
+  "repository": "Pawel/",
+  "scripts": {
+    "build": "lwc-services build -m production -b rollup",
+    "build:development": "lwc-services build -b rollup",
+    "lint": "eslint ./src/**/*.js",
+    "prettier": "prettier --write \"**/*.{css,html,js,json,md,ts,yaml,yml}\"",
+    "prettier:verify": "prettier --list-different \"**/*.{css,html,js,json,md,ts,yaml,yml}\"",
+    "serve": "node scripts/server.js",
+    "test:unit": "lwc-services test:unit",
+    "test:unit:coverage": "lwc-services test:unit --coverage",
+    "test:unit:debug": "lwc-services test:unit --debug",
+    "test:unit:watch": "lwc-services test:unit --watch",
+    "start": "lwc-services watch -b rollup"
+  }
+}
